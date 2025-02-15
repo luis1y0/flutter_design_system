@@ -1,11 +1,5 @@
 name: Widgetbook Cloud Hosting
-on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
+on: push
 
 jobs:
   widgetbook-cloud-hosting:
