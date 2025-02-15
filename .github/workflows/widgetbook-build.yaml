@@ -1,5 +1,11 @@
 name: Widgetbook Cloud Hosting
 on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'lib/**'
+      - 'widgetbook/**'
   push:
     branches:
       - main
