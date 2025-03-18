@@ -7,7 +7,8 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 Widget primaryButton(BuildContext context) {
   return DSButton(
     text: context.knobs.string(
-      label: '',
+      label: 'Label',
+      initialValue: 'Primary',
     ),
     onPressed: () {},
   );
