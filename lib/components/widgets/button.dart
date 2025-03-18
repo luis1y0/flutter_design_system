@@ -53,7 +53,7 @@ class DSButton extends StatelessWidget {
       case DSButtonVariant.secondary:
         return DSColors.secondary;
       case DSButtonVariant.tertiary:
-        return Colors.white;
+        return DSColors.tertiary;
     }
   }
 
@@ -64,7 +64,7 @@ class DSButton extends StatelessWidget {
       case DSButtonVariant.secondary:
         return Colors.white;
       case DSButtonVariant.tertiary:
-        return DSColors.secondary;
+        return Colors.white;
     }
   }
 
@@ -75,9 +75,7 @@ class DSButton extends StatelessWidget {
       case DSButtonVariant.secondary:
         return BorderSide.none;
       case DSButtonVariant.tertiary:
-        return const BorderSide(
-          color: DSColors.secondary,
-        );
+        return BorderSide.none;
     }
   }
 }

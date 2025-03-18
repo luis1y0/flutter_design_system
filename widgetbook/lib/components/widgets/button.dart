@@ -17,6 +17,7 @@ Widget primaryButton(BuildContext context) {
 @widgetbook.UseCase(name: 'Secondary', type: DSButton)
 Widget secondaryButton(BuildContext context) {
   return DSButton(
+    variant: DSButtonVariant.secondary,
     text: 'Secondary',
     onPressed: () {},
   );
@@ -25,6 +26,7 @@ Widget secondaryButton(BuildContext context) {
 @widgetbook.UseCase(name: 'Tertiary', type: DSButton)
 Widget tertiaryButton(BuildContext context) {
   return DSButton(
+    variant: DSButtonVariant.tertiary,
     text: 'Tertiary',
     onPressed: () {},
   );
