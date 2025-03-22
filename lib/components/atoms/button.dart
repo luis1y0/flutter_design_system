@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_design_system/colors/colors.dart';
+import 'package:flutter_design_system/flutter_design_system.dart';
 
 enum DSButtonVariant {
   primary,
@@ -22,10 +22,13 @@ class DSButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dsProvider = DesignSystemProvider.of(context);
+    final colorScheme = dsProvider.colorScheme;
+    final bgColor = _getBackgroundColor(colorScheme);
     return RawMaterialButton(
-      fillColor: _getBackgroundColor(),
+      fillColor: bgColor.color,
       shape: RoundedRectangleBorder(
-        side: _getBorder(),
+        side: BorderSide.none,
         borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.all(8),
@@ -34,48 +37,35 @@ class DSButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) ...[
-            Icon(icon, color: _getContentColor()),
+            Icon(
+              icon,
+              color: bgColor.isLight
+                  ? colorScheme.dark.color
+                  : colorScheme.light.color,
+            ),
             const SizedBox(width: 8),
           ],
           Text(
             text,
-            style: TextStyle(color: _getContentColor()),
+            style: TextStyle(
+              color: bgColor.isLight
+                  ? colorScheme.dark.color
+                  : colorScheme.light.color,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Color _getBackgroundColor() {
+  DSColor _getBackgroundColor(DSColorScheme colorScheme) {
     switch (variant) {
       case DSButtonVariant.primary:
-        return DSColors.primary;
+        return colorScheme.primary;
       case DSButtonVariant.secondary:
-        return DSColors.secondary;
+        return colorScheme.secondary;
       case DSButtonVariant.tertiary:
-        return DSColors.tertiary;
-    }
-  }
-
-  Color _getContentColor() {
-    switch (variant) {
-      case DSButtonVariant.primary:
-        return Colors.white;
-      case DSButtonVariant.secondary:
-        return Colors.white;
-      case DSButtonVariant.tertiary:
-        return Colors.white;
-    }
-  }
-
-  BorderSide _getBorder() {
-    switch (variant) {
-      case DSButtonVariant.primary:
-        return BorderSide.none;
-      case DSButtonVariant.secondary:
-        return BorderSide.none;
-      case DSButtonVariant.tertiary:
-        return BorderSide.none;
+        return colorScheme.tertiary;
     }
   }
 }
