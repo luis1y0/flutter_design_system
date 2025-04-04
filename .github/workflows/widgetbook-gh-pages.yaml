@@ -33,4 +33,4 @@ jobs:
         working-directory: widgetbook
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/web
+          publish_dir: ./widgetbook/build/web
