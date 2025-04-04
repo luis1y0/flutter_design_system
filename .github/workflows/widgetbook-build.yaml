@@ -11,13 +11,11 @@ jobs:
       - name: Setup flutter
         uses: subosito/flutter-action@v2
         with:
-            channel: stable
+            flutter-version: '3.24.3'
 
       - name: Bootstrap App
         run: |
             flutter pub get
-            # Add any other steps needed to make your
-            # app widgets available for Widgetbook
 
       - name: Build Widgetbook
         working-directory: widgetbook
