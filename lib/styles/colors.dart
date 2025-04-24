@@ -8,6 +8,8 @@ final class DSColorScheme {
   final DSColor error;
   final DSColor light;
   final DSColor dark;
+  final DSColor disabled;
+  final DSColor backgroundDisabled;
   const DSColorScheme({
     required this.primary,
     required this.secondary,
@@ -16,6 +18,8 @@ final class DSColorScheme {
     required this.error,
     required this.light,
     required this.dark,
+    required this.disabled,
+    required this.backgroundDisabled,
   });
 }
 

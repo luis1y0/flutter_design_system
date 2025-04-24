@@ -6,17 +6,17 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 Widget textStyles(BuildContext context) {
   return Center(
     child: SizedBox(
-      width: MediaQuery.sizeOf(context).width / 2,
+      width: MediaQuery.sizeOf(context).width * 0.8,
       child: DSCard(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            DSText(
               'Example title',
               style: DSTextStyles.cardTitle(),
             ),
-            Text(
+            DSText(
               'Example subtitle',
               style: DSTextStyles.cardSubtitle(),
             ),
@@ -25,17 +25,17 @@ Widget textStyles(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 DSButton(
-                  text: 'Cancel',
                   onPressed: () {},
                   variant: DSButtonVariant.tertiary,
+                  child: const DSText('Cancel'),
                 ),
                 const SizedBox(
                   width: 16,
                 ),
                 DSButton(
-                  text: 'Accept',
                   onPressed: () {},
                   variant: DSButtonVariant.primary,
+                  child: const DSText('Accept'),
                 ),
               ],
             ),

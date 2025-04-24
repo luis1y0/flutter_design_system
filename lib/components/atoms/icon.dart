@@ -8,11 +8,11 @@ class DSIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dsProvider = DesignSystemProvider.of(context);
-    final colorScheme = dsProvider.colorScheme;
+    final stateWidget = DSStateWidget.of(context);
+    final textStyle = stateWidget?.style?.textStyle;
     return Icon(
       data,
-      color: color?.color ?? colorScheme.light.color,
+      color: color?.color ?? textStyle?.color,
     );
   }
 }

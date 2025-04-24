@@ -5,73 +5,96 @@ enum DSFabButtonVariant { accent, outlined, flattened }
 
 class DSFabButton extends StatelessWidget {
   final Widget child;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final DSFabButtonVariant variant;
   const DSFabButton({
     super.key,
     required this.child,
-    required this.onPressed,
+    this.onPressed,
     this.variant = DSFabButtonVariant.accent,
   });
 
   @override
   Widget build(BuildContext context) {
-    final dsProvider = DesignSystemProvider.of(context);
-    final colorScheme = dsProvider.colorScheme;
+    return DSActionableWidget(
+      onPressed: onPressed,
+      defineStyle: (state, ds) {
+        final color = _getBackgroundColor(ds.colorScheme);
+        switch (state) {
+          case DSActionableState.activated:
+            return DSStyle(
+              background: color,
+              textStyle: DSTextStyles.actionable().copyWith(
+                color: color.isLight
+                    ? ds.colorScheme.dark.color
+                    : ds.colorScheme.light.color,
+              ),
+              border: Border.all(
+                color: ds.colorScheme.secondary.color,
+                width: 1.0,
+              ),
+            );
+          case DSActionableState.disabled:
+            return DSStyle(
+              background: ds.colorScheme.backgroundDisabled,
+              textStyle: DSTextStyles.actionable().copyWith(
+                color: ds.colorScheme.disabled.color,
+              ),
+              border: Border.all(
+                color: ds.colorScheme.disabled.color,
+                width: 1.0,
+              ),
+            );
+          case DSActionableState.pressed || DSActionableState.hovered:
+            return DSStyle(
+              background: color,
+              textStyle: DSTextStyles.actionable().copyWith(
+                color: color.isLight
+                    ? ds.colorScheme.dark.color
+                    : ds.colorScheme.light.color,
+              ),
+              border: Border.all(
+                color: ds.colorScheme.secondary.color,
+                width: 1.0,
+              ),
+            );
+          default:
+            return const DSStyle();
+        }
+      },
+      builder: (context, state, style) {
+        return RawMaterialButton(
+          fillColor: style.background!.color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            side: variant == DSFabButtonVariant.outlined
+                ? style.border!.top
+                : BorderSide.none,
+          ),
+          constraints: const BoxConstraints(
+            maxHeight: 48.0,
+            minHeight: 48.0,
+            maxWidth: 48.0,
+            minWidth: 48.0,
+          ),
+          onPressed: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: child,
+          ),
+        );
+      },
+    );
+  }
+
+  DSColor _getBackgroundColor(DSColorScheme colorScheme) {
     switch (variant) {
       case DSFabButtonVariant.accent:
-        return Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: colorScheme.secondary.color,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: colorScheme.secondary.color,
-                blurRadius: 2,
-                offset: const Offset(1, 1),
-              ),
-            ],
-          ),
-          child: DSLocalColorScheme(
-            color: colorScheme.secondary,
-            child: child,
-          ),
-        );
-      case DSFabButtonVariant.outlined:
-        return Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: colorScheme.light.color,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: colorScheme.secondary.color),
-            boxShadow: [
-              BoxShadow(
-                color: colorScheme.secondary.color,
-                blurRadius: 2,
-                offset: const Offset(1, 1),
-              ),
-            ],
-          ),
-          child: DSLocalColorScheme(
-            color: colorScheme.light,
-            child: child,
-          ),
-        );
-      case DSFabButtonVariant.flattened:
-        return Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: colorScheme.light.color,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: DSLocalColorScheme(
-            color: colorScheme.light,
-            child: child,
-          ),
-        );
+        return colorScheme.primary;
+      case DSFabButtonVariant.flattened || DSFabButtonVariant.outlined:
+        return colorScheme.light;
       default:
-        return const SizedBox.shrink();
+        return colorScheme.light;
     }
   }
 }

@@ -23,22 +23,3 @@ class DesignSystemProvider extends InheritedWidget {
   @override
   bool updateShouldNotify(DesignSystemProvider oldWidget) => false;
 }
-
-class DSLocalColorScheme extends InheritedWidget {
-  final DSColor color;
-  const DSLocalColorScheme(
-      {super.key, required super.child, required this.color});
-
-  static DSLocalColorScheme? maybeOf(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<DSLocalColorScheme>();
-  }
-
-  static DSLocalColorScheme of(BuildContext context) {
-    final DSLocalColorScheme? result = maybeOf(context);
-    assert(result != null, 'No [LocalColorScheme] found in context');
-    return result!;
-  }
-
-  @override
-  bool updateShouldNotify(DSLocalColorScheme oldWidget) => true;
-}
