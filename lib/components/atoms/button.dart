@@ -8,57 +8,70 @@ enum DSButtonVariant {
 }
 
 class DSButton extends StatelessWidget {
-  final String text;
+  final Widget child;
   final VoidCallback? onPressed;
   final DSButtonVariant variant;
-  final IconData? icon;
   const DSButton({
-    required this.text,
-    required this.onPressed,
+    required this.child,
+    this.onPressed,
     this.variant = DSButtonVariant.primary,
-    this.icon,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final dsProvider = DesignSystemProvider.of(context);
-    final colorScheme = dsProvider.colorScheme;
-    final bgColor = _getBackgroundColor(colorScheme);
-    return RawMaterialButton(
-      fillColor: bgColor.color,
-      shape: RoundedRectangleBorder(
-        side: BorderSide.none,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      padding: const EdgeInsets.all(8),
+    return DSActionableWidget(
       onPressed: onPressed,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (icon != null) ...[
-            Icon(
-              icon,
-              color: bgColor.isLight
-                  ? colorScheme.dark.color
-                  : colorScheme.light.color,
-            ),
-            const SizedBox(width: 8),
-          ],
-          Text(
-            text,
-            style: TextStyle(
-              color: bgColor.isLight
-                  ? colorScheme.dark.color
-                  : colorScheme.light.color,
-            ),
+      defineStyle: (state, ds) {
+        final color = _getBackgroundColor(ds.colorScheme);
+        switch (state) {
+          case DSActionableState.activated:
+            return DSStyle(
+              background: color,
+              textStyle: DSTextStyles.actionable().copyWith(
+                color: color.isLight
+                    ? ds.colorScheme.dark.color
+                    : ds.colorScheme.light.color,
+              ),
+            );
+          case DSActionableState.disabled:
+            return DSStyle(
+              background: ds.colorScheme.backgroundDisabled,
+              textStyle: DSTextStyles.actionable().copyWith(
+                color: ds.colorScheme.disabled.color,
+              ),
+            );
+          case DSActionableState.pressed || DSActionableState.hovered:
+            return DSStyle(
+              background: _getBackgroundColor(ds.colorScheme),
+              textStyle: DSTextStyles.actionable().copyWith(
+                color: color.isLight
+                    ? ds.colorScheme.dark.color
+                    : ds.colorScheme.light.color,
+              ),
+            );
+          default:
+            return const DSStyle();
+        }
+      },
+      builder: (context, state, style) {
+        return RawMaterialButton(
+          fillColor: style.background!.color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
           ),
-        ],
-      ),
+          padding: const EdgeInsets.all(8),
+          onPressed: onPressed,
+          child: child,
+        );
+      },
     );
   }
 
   DSColor _getBackgroundColor(DSColorScheme colorScheme) {
+    if (onPressed == null) {
+      return colorScheme.backgroundDisabled;
+    }
     switch (variant) {
       case DSButtonVariant.primary:
         return colorScheme.primary;

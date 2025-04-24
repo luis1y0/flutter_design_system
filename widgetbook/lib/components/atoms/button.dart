@@ -1,33 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_design_system/components/components.dart';
+import 'package:flutter_design_system/flutter_design_system.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
-@widgetbook.UseCase(name: 'Primary', type: DSButton)
+@widgetbook.UseCase(name: 'Button Type', type: DSButton)
 Widget primaryButton(BuildContext context) {
-  return DSButton(
-    text: context.knobs.string(
-      label: 'Label',
-      initialValue: 'Primary',
-    ),
-    onPressed: () {},
+  final buttonType = context.knobs.list<ButtonTypeOption>(
+    label: 'Button Type',
+    options: [
+      ButtonTypeOption('Primary', DSButtonVariant.primary),
+      ButtonTypeOption('Secondary', DSButtonVariant.secondary),
+      ButtonTypeOption('Tertiary', DSButtonVariant.tertiary),
+    ],
+  );
+  return Column(
+    mainAxisSize: MainAxisSize.max,
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      DSButton(
+        onPressed: () {},
+        variant: buttonType.type,
+        child: const DSText('Enabled Button'),
+      ),
+      DSButton(
+        variant: buttonType.type,
+        child: const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            DSIcon(Icons.done),
+            SizedBox(width: 8.0),
+            DSText('Disabled Button'),
+          ],
+        ),
+      ),
+    ],
   );
 }
 
-@widgetbook.UseCase(name: 'Secondary', type: DSButton)
-Widget secondaryButton(BuildContext context) {
-  return DSButton(
-    variant: DSButtonVariant.secondary,
-    text: 'Secondary',
-    onPressed: () {},
-  );
-}
+class ButtonTypeOption {
+  final String label;
+  final DSButtonVariant type;
 
-@widgetbook.UseCase(name: 'Tertiary', type: DSButton)
-Widget tertiaryButton(BuildContext context) {
-  return DSButton(
-    variant: DSButtonVariant.tertiary,
-    text: 'Tertiary',
-    onPressed: () {},
-  );
+  ButtonTypeOption(this.label, this.type);
+  @override
+  String toString() {
+    return label;
+  }
 }

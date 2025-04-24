@@ -43,20 +43,17 @@ Widget textStyles(BuildContext context) {
             ),
           ),
         ),
-        DSFabButton(
-          onPressed: () {},
+        const DSFabButton(
           variant: DSFabButtonVariant.outlined,
-          child: const DSText('1'),
+          child: DSText('1'),
         ),
-        DSFabButton(
-          onPressed: () {},
+        const DSFabButton(
           variant: DSFabButtonVariant.outlined,
-          child: const DSText('2'),
+          child: DSText('2'),
         ),
-        DSFabButton(
-          onPressed: () {},
+        const DSFabButton(
           variant: DSFabButtonVariant.outlined,
-          child: const DSText('3'),
+          child: DSText('3'),
         ),
       ],
     ),

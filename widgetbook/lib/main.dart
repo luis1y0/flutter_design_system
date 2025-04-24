@@ -26,10 +26,24 @@ class WidgetbookApp extends StatelessWidget {
         error: DSColor(color: const Color(0xFFDE3730), isLight: false),
         dark: DSColor(color: const Color(0xFF003F5F), isLight: false),
         light: DSColor(color: const Color(0xFFF1F5FF), isLight: true),
+        backgroundDisabled: DSColor(
+            color: const Color.fromARGB(255, 163, 173, 201), isLight: true),
+        disabled: DSColor(
+            color: const Color.fromARGB(255, 134, 140, 174), isLight: true),
       ),
       child: Widgetbook.material(
         themeMode: ThemeMode.light,
         directories: directories,
+        addons: [
+          DeviceFrameAddon(
+            devices: Devices.all,
+          ),
+          MaterialThemeAddon(
+            themes: [
+              WidgetbookTheme(name: 'Light', data: ThemeData.light()),
+            ],
+          ),
+        ],
       ),
     );
   }
