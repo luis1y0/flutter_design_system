@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_design_system/flutter_design_system.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
+import 'package:widgetbook_workspace/pages/home_page.dart';
 
 // This file does not exist yet,
 // it will be generated in the next step
@@ -44,6 +45,7 @@ class WidgetbookApp extends StatelessWidget {
             ],
           ),
         ],
+        home: const HomePage(),
       ),
     );
   }

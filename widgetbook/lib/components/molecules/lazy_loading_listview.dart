@@ -81,27 +81,10 @@ class _PaginationListenerWidgetState extends State<PaginationListenerWidget> {
     return ValueListenableBuilder<List<int>>(
         valueListenable: widget.notifier,
         builder: (context, items, child) {
-          return ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxHeight: 48.0,
-            ),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return SizedBox(
-                  height: 48,
-                  width: 48,
-                  child: Center(
-                    child: DSText(
-                      items[index].toString(),
-                      style: DSTextStyles.base(),
-                    ),
-                  ),
-                );
-              },
-            ),
-          );
+          if (items.isEmpty) {
+            return const Text('No elements loaded');
+          }
+          return Text('${items.first} items loaded.');
         });
   }
 }
