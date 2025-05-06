@@ -6,10 +6,10 @@ const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {"assets/AssetManifest.json": "c88ac971eaaaa7aea6397cddc5c346e7",
 "assets/AssetManifest.bin": "6fc7c671ee2aa276bac7a25f7c1476db",
 "assets/FontManifest.json": "dab73cde03762205a4e48f91aba1d49b",
-"assets/fonts/MaterialIcons-Regular.otf": "533bfa64904c00e028b53da1d818a81b",
+"assets/fonts/MaterialIcons-Regular.otf": "b5973ef2db82905030a8ebc324501c54",
 "assets/AssetManifest.bin.json": "80510133c2cca4d29b60b93612cd39a0",
 "assets/shaders/ink_sparkle.frag": "ecc85a2e95f5e9f53123dcaf8cb9b6ce",
-"assets/NOTICES": "94de3760de623a4d1312fb0a3a02689b",
+"assets/NOTICES": "ec915002edbd076fa2ce55963bcf25c7",
 "assets/packages/widgetbook/assets/logo.png": "445292cbfde4f60d5b3dca36d0d6dfb2",
 "assets/packages/widgetbook/assets/fonts/Poppins/Poppins-Thin.ttf": "9ec263601ee3fcd71763941207c9ad0d",
 "assets/packages/widgetbook/assets/fonts/Poppins/Poppins-Light.ttf": "fcc40ae9a542d001971e53eaed948410",
@@ -44,13 +44,13 @@ const RESOURCES = {"assets/AssetManifest.json": "c88ac971eaaaa7aea6397cddc5c346e
 "canvaskit/skwasm.worker.js": "89990e8c92bcb123999aa81f7e203b1c",
 "index.html": "041f38497fc0e6ffcadb5452114b4cd0",
 "/": "041f38497fc0e6ffcadb5452114b4cd0",
-"flutter_bootstrap.js": "0054958287235e300254696fb5eb555c",
+"flutter_bootstrap.js": "bd483cc668259f2b2f3b5d69796c25c0",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"main.dart.js": "baf8261c9370e95772686d797c88cc84"};
+"main.dart.js": "79f190788815707c725ba1e297cd542b"};
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = ["main.dart.js",
