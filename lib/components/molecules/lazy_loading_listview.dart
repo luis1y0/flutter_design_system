@@ -24,9 +24,11 @@ class DSLazyLoadingListView<T> extends StatefulWidget {
 
 class _DSLazyLoadingListViewState extends State<DSLazyLoadingListView> {
   List _items = [];
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
+    _scrollController.addListener(_onScroll);
     if (widget.onEndReached == null) {
       return;
     }
@@ -36,26 +38,40 @@ class _DSLazyLoadingListViewState extends State<DSLazyLoadingListView> {
 
   @override
   Widget build(BuildContext context) {
-    return NotificationListener<ScrollMetricsNotification>(
-      onNotification: (notification) {
-        final position = notification.metrics.pixels;
-        final max = notification.metrics.maxScrollExtent;
-        if (max - position > 50 || widget.onEndReached == null) {
-          return false;
-        }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.position.extentAfter < 200) {
         final items = widget.onEndReached!();
         setState(() {
           _items = items;
         });
-        return false; // stop notification bubbling up side the tree
+      }
+    });
+    return ListView.builder(
+      controller: _scrollController,
+      itemCount: _items.length,
+      itemBuilder: (context, index) {
+        return widget.itemBuilder(context, index, _items[index]);
       },
-      child: ListView.builder(
-        itemCount: _items.length,
-        itemBuilder: (context, index) {
-          return widget.itemBuilder(context, index, _items[index]);
-        },
-      ),
     );
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.extentAfter < 200) {
+      final items = widget.onEndReached!();
+      setState(() {
+        _items = items;
+      });
+      return;
+    }
+    final position = _scrollController.positions.first.pixels;
+    final max = _scrollController.positions.first.maxScrollExtent;
+    if (max - position > 50 || widget.onEndReached == null) {
+      return;
+    }
+    final items = widget.onEndReached!();
+    setState(() {
+      _items = items;
+    });
   }
 
   @override
