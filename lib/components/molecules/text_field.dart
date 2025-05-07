@@ -17,6 +17,7 @@ class DSTextField extends StatelessWidget {
   final DSTextEditingCallback? onChanged;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+  final bool obscureText;
 
   /// Used only in default TextField constructor
   final DSTextEditingCallback? onSubmitted;
@@ -33,6 +34,7 @@ class DSTextField extends StatelessWidget {
     this.state = DSTextFieldState.activated,
     this.isDense = false,
     this.keyboardType,
+    this.obscureText = false,
     this.inputFormatters,
     this.onSubmitted,
     this.onChanged,
@@ -49,6 +51,7 @@ class DSTextField extends StatelessWidget {
     this.state = DSTextFieldState.activated,
     this.isDense = false,
     this.keyboardType,
+    this.obscureText = false,
     this.inputFormatters,
     this.onSaved,
     this.validator,
@@ -104,6 +107,7 @@ class DSTextField extends StatelessWidget {
         onChanged: onChanged,
         validator: validator,
         autovalidateMode: autovalidateMode,
+        obscureText: obscureText,
         enabled: state != DSTextFieldState.disabled,
         keyboardType: keyboardType,
         inputFormatters: inputFormatters,
@@ -116,6 +120,7 @@ class DSTextField extends StatelessWidget {
       controller: controller,
       onSubmitted: onSubmitted,
       onChanged: onChanged,
+      obscureText: obscureText,
       enabled: state != DSTextFieldState.disabled,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
