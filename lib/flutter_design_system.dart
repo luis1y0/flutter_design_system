@@ -1,5 +1,5 @@
 library flutter_design_system;
 
-export 'components/design_system_provider.dart';
-export 'styles/styles.dart';
-export 'components/components.dart';
+export 'src/components/design_system_provider.dart';
+export 'src/styles/styles.dart';
+export 'src/components/components.dart';
