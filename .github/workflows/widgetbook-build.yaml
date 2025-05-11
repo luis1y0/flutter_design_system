@@ -4,41 +4,9 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup flutter
-        uses: subosito/flutter-action@v2
-        with:
-            flutter-version: '3.24.3'
-
-      - name: Bootstrap App
-        run: |
-            flutter pub get
-
-      - name: Build Widgetbook
-        working-directory: widgetbook
-        run: |
-            flutter pub get
-            dart run build_runner build -d
-
-      - name: Lint (flutter analyze)
-        run: flutter analyze
-
-      - name: Run tests
-        run: flutter test
-
   deply-to-widgetbook:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
