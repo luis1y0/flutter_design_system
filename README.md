@@ -1,35 +1,58 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A design system built with atom design methodology.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+You can see the set of widgets at [this link](https://luis1y0.github.io/flutter_design_system/).
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+To this package from github to your project add this to your pubspec.yaml:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  # add this dependency
+  flutter_design_system:
+    git:
+      url: https://github.com/luis1y0/flutter_design_system.git
+```
+
+Working with a local version:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  # add this dependency
+  flutter_design_system:
+    path: ../path-to-package
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Before using any widget of this package, you need to wrap your root app widget
+into this widget that defines the color scheme:
 
 ```dart
-const like = 'sample';
+import 'package:flutter_design_system/flutter_design_system.dart';
+
+void main() {
+  runApp(DesignSystemProvider(
+    colorScheme: DSColorScheme(
+      primary: DSColor(color: const Color(0xFFF273B2), isLight: true),
+      secondary: DSColor(color: const Color(0xFF0099FF), isLight: false),
+      tertiary: DSColor(color: const Color(0xFF4C3BB2), isLight: false),
+      success: DSColor(color: const Color(0xFF2DBF34), isLight: true),
+      error: DSColor(color: const Color(0xFFDE3730), isLight: false),
+      dark: DSColor(color: const Color(0xFF003F5F), isLight: false),
+      light: DSColor(color: const Color(0xFFF1F5FF), isLight: true),
+      backgroundDisabled: DSColor(color: const Color.fromARGB(255, 163, 173, 201), isLight: true),
+      disabled: DSColor(color: const Color.fromARGB(255, 134, 140, 174), isLight: true),
+    ),
+    child: Application(),
+  ));
+}
 ```
 
 ## Additional information

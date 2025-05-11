@@ -50,6 +50,7 @@ class _DSSignupFormState extends State<DSSignupForm> {
               ),
             const SizedBox(height: 8.0),
             DSTextField.form(
+              key: const ValueKey('email_signup_field'),
               controller: _controller.controllerEmail,
               labelText: 'Email',
               isDense: true,
@@ -61,6 +62,7 @@ class _DSSignupFormState extends State<DSSignupForm> {
             ),
             const SizedBox(height: 8.0),
             DSTextField.form(
+              key: const ValueKey('password_signup_field'),
               controller: _controller.controllerPassword,
               labelText: 'Password',
               isDense: true,
@@ -72,6 +74,7 @@ class _DSSignupFormState extends State<DSSignupForm> {
             ),
             const SizedBox(height: 8.0),
             DSTextField.form(
+              key: const ValueKey('confirm_password_signup_field'),
               controller: _controller.controllerConfirmPassword,
               labelText: 'Confirm Password.',
               isDense: true,
