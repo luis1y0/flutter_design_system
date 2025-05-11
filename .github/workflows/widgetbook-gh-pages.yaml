@@ -20,8 +20,13 @@ jobs:
         with:
           flutter-version: '3.24.3'
 
-      - name: Install dependencies
+      - name: Bootstrap App
         run: flutter pub get
+
+      - name: Bootstrap Widgetbook
+        working-directory: widgetbook
+        run: |
+            flutter pub get
 
       - name: Lint (flutter analyze)
         run: flutter analyze
@@ -32,7 +37,6 @@ jobs:
       - name: Build Widgetbook for Web
         working-directory: widgetbook
         run: |
-            flutter pub get
             dart run build_runner build -d
             flutter build web -t lib/main.dart --base-href=/flutter_design_system/
 
