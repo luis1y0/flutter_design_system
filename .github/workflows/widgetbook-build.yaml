@@ -17,10 +17,20 @@ jobs:
         run: |
             flutter pub get
 
-      - name: Build Widgetbook
+      - name: Bootstrap Widgetbook
         working-directory: widgetbook
         run: |
             flutter pub get
+
+      - name: Lint (flutter analyze)
+        run: flutter analyze
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Build Widgetbook
+        working-directory: widgetbook
+        run: |
             dart run build_runner build -d
             flutter build web -t lib/main.dart
 
