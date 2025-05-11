@@ -20,21 +20,21 @@ jobs:
         with:
           flutter-version: '3.24.3'
 
-      - name: Install dependencies
+      - name: Bootstrap App
         run: flutter pub get
+
+      - name: Build Widgetbook
+        working-directory: widgetbook
+        run: |
+            flutter pub get
+            dart run build_runner build -d
+            flutter build web -t lib/main.dart --base-href=/flutter_design_system/
 
       - name: Lint (flutter analyze)
         run: flutter analyze
 
       - name: Run tests
         run: flutter test
-
-      - name: Build Widgetbook for Web
-        working-directory: widgetbook
-        run: |
-            flutter pub get
-            dart run build_runner build -d
-            flutter build web -t lib/main.dart --base-href=/flutter_design_system/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
