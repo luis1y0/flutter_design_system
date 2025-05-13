@@ -3,6 +3,7 @@ export 'atoms/button.dart';
 export 'atoms/card.dart';
 export 'atoms/fab_button.dart';
 export 'atoms/icon.dart';
+export 'atoms/link_text.dart';
 export 'atoms/text.dart';
 export 'molecules/animated_listview.dart';
 export 'molecules/lazy_loading_listview.dart';
