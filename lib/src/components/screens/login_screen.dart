@@ -4,7 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_design_system/flutter_design_system.dart';
 
 class DSLoginScreen extends StatefulWidget {
-  const DSLoginScreen({super.key});
+  final Widget logo;
+  final VoidCallback onTermsAndConditions;
+  final VoidCallback onPrivacyPolicy;
+  final DSOnForgetPasswordCallback onForgotPassword;
+  final DSOnSigninCallback onSigninCallback;
+  final DSOnRegisterCallback onRegisterCallback;
+  const DSLoginScreen({
+    super.key,
+    required this.logo,
+    required this.onForgotPassword,
+    required this.onTermsAndConditions,
+    required this.onPrivacyPolicy,
+    required this.onSigninCallback,
+    required this.onRegisterCallback,
+  });
 
   @override
   State<DSLoginScreen> createState() => _DSLoginScreenState();
@@ -41,16 +55,22 @@ class _DSLoginScreenState extends State<DSLoginScreen> {
             },
             child: _buildForm(isSignIn: _showSignin),
           ),
-          const Row(
+          Row(
             children: [
               Expanded(
                 child: Center(
-                  child: DSLinkText('Terms and Conditions'),
+                  child: DSLinkText(
+                    'Terms and Conditions',
+                    callback: widget.onTermsAndConditions,
+                  ),
                 ),
               ),
               Expanded(
                 child: Center(
-                  child: DSLinkText('Privacy Policy'),
+                  child: DSLinkText(
+                    'Privacy Policy',
+                    callback: widget.onPrivacyPolicy,
+                  ),
                 ),
               ),
             ],
@@ -68,6 +88,8 @@ class _DSLoginScreenState extends State<DSLoginScreen> {
             _showSignin = !_showSignin;
           });
         },
+        onSignin: widget.onSigninCallback,
+        onForgetPasswordCallback: widget.onForgotPassword,
       );
     } else {
       return DSSignupForm(
@@ -76,6 +98,7 @@ class _DSLoginScreenState extends State<DSLoginScreen> {
             _showSignin = !_showSignin;
           });
         },
+        onRegister: widget.onRegisterCallback,
       );
     }
   }

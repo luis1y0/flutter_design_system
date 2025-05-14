@@ -5,6 +5,7 @@ class DSSigninFormState {
   final String password;
   final DSTextFieldState emailState;
   final DSTextFieldState passwordState;
+  final DSSigninResult result;
   final bool isPasswordVisible;
   final bool isLoading;
   final bool isButtonEnabled;
@@ -14,6 +15,7 @@ class DSSigninFormState {
     this.password = '',
     this.emailState = DSTextFieldState.activated,
     this.passwordState = DSTextFieldState.activated,
+    this.result = const DSSigninResult.success(),
     this.isPasswordVisible = false,
     this.isLoading = false,
     this.isButtonEnabled = false,
@@ -24,6 +26,7 @@ class DSSigninFormState {
     String? password,
     DSTextFieldState? emailState,
     DSTextFieldState? passwordState,
+    DSSigninResult? result,
     bool? isPasswordVisible,
     bool? isLoading,
     bool? isButtonEnabled,
@@ -33,10 +36,51 @@ class DSSigninFormState {
       password: password ?? this.password,
       emailState: emailState ?? this.emailState,
       passwordState: passwordState ?? this.passwordState,
+      result: result ?? this.result,
       isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
       isLoading: isLoading ?? this.isLoading,
       isButtonEnabled: isButtonEnabled ?? this.isButtonEnabled,
     );
+  }
+}
+
+class DSSigninResult {
+  final bool success;
+  final String? error;
+  final String? errorEmail;
+  final String? errorPassword;
+
+  const DSSigninResult.success()
+      : success = true,
+        error = null,
+        errorEmail = null,
+        errorPassword = null;
+
+  const DSSigninResult.generalFail({required String message})
+      : success = false,
+        error = message,
+        errorEmail = null,
+        errorPassword = null;
+
+  const DSSigninResult.fieldFail({this.errorEmail, this.errorPassword})
+      : success = false,
+        error = null;
+
+  @override
+  String toString() {
+    if (success) {
+      return 'Success';
+    }
+    if (error != null) {
+      return 'General Error';
+    }
+    if (errorEmail != null) {
+      return 'Email Error';
+    }
+    if (errorPassword != null) {
+      return 'Password Error';
+    }
+    return super.toString();
   }
 }
 
@@ -69,8 +113,12 @@ class DSSigninFormController extends ChangeNotifier {
         !state.isButtonEnabled) {
       _state = _state.copyWith(
         isButtonEnabled: true,
-        emailState: errorEmail != null ? DSTextFieldState.error : null,
-        passwordState: errorPassword != null ? DSTextFieldState.error : null,
+        emailState: errorEmail != null
+            ? DSTextFieldState.error
+            : DSTextFieldState.activated,
+        passwordState: errorPassword != null
+            ? DSTextFieldState.error
+            : DSTextFieldState.activated,
       );
       notifyListeners();
     }
@@ -79,8 +127,12 @@ class DSSigninFormController extends ChangeNotifier {
         state.isButtonEnabled) {
       _state = _state.copyWith(
         isButtonEnabled: false,
-        emailState: errorEmail != null ? DSTextFieldState.error : null,
-        passwordState: errorPassword != null ? DSTextFieldState.error : null,
+        emailState: errorEmail != null
+            ? DSTextFieldState.error
+            : DSTextFieldState.activated,
+        passwordState: errorPassword != null
+            ? DSTextFieldState.error
+            : DSTextFieldState.activated,
       );
       notifyListeners();
     }
@@ -88,22 +140,22 @@ class DSSigninFormController extends ChangeNotifier {
 
   String? validateEmail(String? email) {
     if (email == null || email.isEmpty) {
-      return 'This field is required.';
+      return DSString.of(DSTextConstants.errorFieldRequired);
     }
     final emailRegex = RegExp(DSTextConstants.regexEmail);
     bool validEmail = emailRegex.hasMatch(email);
     if (validEmail) {
       return null;
     }
-    return 'Invalid email.';
+    return DSString.of(DSTextConstants.errorInvalidEmail);
   }
 
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'This field is required.';
+      return DSString.of(DSTextConstants.errorFieldRequired);
     }
     if (value.length < 8) {
-      return 'Your password must be 8 or more characters.';
+      return DSString.of(DSTextConstants.errorInvalidPassword);
     }
     return null;
   }
@@ -115,7 +167,10 @@ class DSSigninFormController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void submit() async {
+  void submit(DSOnSigninCallback? callback) async {
+    if (callback == null) {
+      return;
+    }
     _state = _state.copyWith(
       isLoading: true,
       isButtonEnabled: false,
@@ -124,14 +179,29 @@ class DSSigninFormController extends ChangeNotifier {
     );
     notifyListeners();
 
-    //final signupResult = await callback(state.email, state.password);
+    final signinResult = await callback(state.email, state.password);
 
     _state = _state.copyWith(
-      isLoading: false,
-      isButtonEnabled: true,
+      isButtonEnabled: false,
       emailState: DSTextFieldState.activated,
       passwordState: DSTextFieldState.activated,
+      result: signinResult,
     );
+    if (signinResult.error != null) {
+      _state = _state.copyWith(
+        isButtonEnabled: true,
+      );
+    }
+    if (signinResult.errorEmail != null) {
+      _state = _state.copyWith(
+        emailState: DSTextFieldState.error,
+      );
+    }
+    if (signinResult.errorPassword != null) {
+      _state = _state.copyWith(
+        passwordState: DSTextFieldState.error,
+      );
+    }
     notifyListeners();
   }
 }

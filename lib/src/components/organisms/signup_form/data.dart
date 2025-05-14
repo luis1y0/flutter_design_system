@@ -131,33 +131,33 @@ class RegisterFormController extends ChangeNotifier {
 
   String? validateEmail(String? email) {
     if (email == null || email.isEmpty) {
-      return 'This field is required.';
+      return DSString.of(DSTextConstants.errorFieldRequired);
     }
     final emailRegex = RegExp(DSTextConstants.regexEmail);
     bool validEmail = emailRegex.hasMatch(email);
     if (validEmail) {
       return null;
     }
-    return 'Invalid email.';
+    return DSString.of(DSTextConstants.errorInvalidEmail);
   }
 
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'This field is required.';
+      return DSString.of(DSTextConstants.errorFieldRequired);
     }
     if (value.length < 8) {
-      return 'Your password must be 8 or more characters.';
+      return DSString.of(DSTextConstants.errorInvalidPassword);
     }
     return null;
   }
 
   String? validateConfirmPassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'This field is required.';
+      return DSString.of(DSTextConstants.errorFieldRequired);
     }
     final passwd = _state.password;
     if (value != passwd) {
-      return 'The password don\'t match.';
+      return DSString.of(DSTextConstants.errorConfirmPassword);
     }
     return null;
   }
