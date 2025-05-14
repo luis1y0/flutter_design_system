@@ -18,6 +18,8 @@ class DSTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final bool obscureText;
+  final Widget? prefix;
+  final Widget? suffix;
 
   /// Used only in default TextField constructor
   final DSTextEditingCallback? onSubmitted;
@@ -33,6 +35,8 @@ class DSTextField extends StatelessWidget {
     this.errorText,
     this.state = DSTextFieldState.activated,
     this.isDense = false,
+    this.prefix,
+    this.suffix,
     this.keyboardType,
     this.obscureText = false,
     this.inputFormatters,
@@ -50,6 +54,8 @@ class DSTextField extends StatelessWidget {
     this.errorText,
     this.state = DSTextFieldState.activated,
     this.isDense = false,
+    this.prefix,
+    this.suffix,
     this.keyboardType,
     this.obscureText = false,
     this.inputFormatters,
@@ -73,25 +79,30 @@ class DSTextField extends StatelessWidget {
       contentPadding: const EdgeInsets.all(16.0),
       floatingLabelAlignment: FloatingLabelAlignment.start,
       floatingLabelStyle: DSTextStyles.base(),
-      floatingLabelBehavior: FloatingLabelBehavior.always,
+      floatingLabelBehavior: FloatingLabelBehavior.auto,
       isDense: isDense,
       constraints: const BoxConstraints(
         maxWidth: 48.0,
       ),
+      // side icons
+      prefixIcon: prefix,
+      prefixIconColor: colorScheme.primary.color,
+      suffixIcon: suffix,
+      suffixIconColor: colorScheme.primary.color,
       // Default
-      border: OutlineInputBorder(
+      border: UnderlineInputBorder(
         borderSide: BorderSide(
           color: colorScheme.dark.color,
         ),
       ),
       // Focused
-      focusedBorder: OutlineInputBorder(
+      focusedBorder: UnderlineInputBorder(
         borderSide: BorderSide(
-          color: colorScheme.secondary.color,
+          color: colorScheme.primary.color,
         ),
       ),
       // Error
-      errorBorder: OutlineInputBorder(
+      errorBorder: UnderlineInputBorder(
           borderSide: BorderSide(
         color: colorScheme.error.color,
       )),
@@ -111,8 +122,10 @@ class DSTextField extends StatelessWidget {
         enabled: state != DSTextFieldState.disabled,
         keyboardType: keyboardType,
         inputFormatters: inputFormatters,
-        style: DSTextStyles.base(),
-        cursorColor: colorScheme.secondary.color,
+        style: DSTextStyles.base().copyWith(
+          color: colorScheme.primary.color,
+        ),
+        cursorColor: colorScheme.primary.color,
         decoration: inputDecoration,
       );
     }
@@ -124,7 +137,9 @@ class DSTextField extends StatelessWidget {
       enabled: state != DSTextFieldState.disabled,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
-      style: DSTextStyles.base(),
+      style: DSTextStyles.base().copyWith(
+        color: colorScheme.primary.color,
+      ),
       cursorColor: colorScheme.secondary.color,
       decoration: inputDecoration,
     );

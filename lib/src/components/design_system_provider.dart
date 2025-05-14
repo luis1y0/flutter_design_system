@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_design_system/flutter_design_system.dart';
 
 class DesignSystemProvider extends InheritedWidget {
-  const DesignSystemProvider({
+  DesignSystemProvider({
     super.key,
     required this.colorScheme,
+    required this.stringResolver,
     required super.child,
-  });
+  }) {
+    DSString.init(stringResolver);
+  }
 
   final DSColorScheme colorScheme;
+  final DSStringResolver stringResolver;
 
   static DesignSystemProvider? maybeOf(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<DesignSystemProvider>();

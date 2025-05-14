@@ -62,6 +62,46 @@ Widget buildWidgets(BuildContext context) {
                     background: ds.colorScheme.dark,
                     textStyle: DSTextStyles.actionable().copyWith(
                       color: ds.colorScheme.light.color,
+                      decorationColor: ds.colorScheme.light.color,
+                    ),
+                  );
+                },
+                builder: (context, state, style) {
+                  final bgColor =
+                      style.background?.color ?? colorScheme.light.color;
+                  return Container(
+                    color: bgColor,
+                    alignment: Alignment.center,
+                    child: const DSLinkText('Example Text'),
+                  );
+                },
+              ),
+              DSActionableWidget(
+                defineStyle: (state, ds) {
+                  return DSStyle(
+                    background: ds.colorScheme.light,
+                    textStyle: DSTextStyles.actionable().copyWith(
+                      color: ds.colorScheme.dark.color,
+                      decorationColor: ds.colorScheme.dark.color,
+                    ),
+                  );
+                },
+                builder: (context, state, style) {
+                  final bgColor =
+                      style.background?.color ?? colorScheme.light.color;
+                  return Container(
+                    color: bgColor,
+                    alignment: Alignment.center,
+                    child: const DSLinkText('Example Text'),
+                  );
+                },
+              ),
+              DSActionableWidget(
+                defineStyle: (state, ds) {
+                  return DSStyle(
+                    background: ds.colorScheme.dark,
+                    textStyle: DSTextStyles.actionable().copyWith(
+                      color: ds.colorScheme.light.color,
                     ),
                   );
                 },

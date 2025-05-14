@@ -19,6 +19,22 @@ class WidgetbookApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DesignSystemProvider(
+      stringResolver: (String key) {
+        return switch (key) {
+          DSTextConstants.labelEmail => 'Email',
+          DSTextConstants.labelPassword => 'Password',
+          DSTextConstants.labelForgotPassword => 'Forgot password?',
+          DSTextConstants.labelSignin => 'Sign In',
+          DSTextConstants.labelCreateAccount => 'No Account? Create one',
+          DSTextConstants.labelTermsConditions => 'Terms and Conditions',
+          DSTextConstants.labelPrivacyPolicy => 'Privacy Policy',
+          DSTextConstants.labelConfirmPassword => 'Confirm Password',
+          DSTextConstants.labelSignup => 'Sign Up',
+          DSTextConstants.labelNavigateLogin =>
+            'Do you already have an account? Go to login',
+          _ => key,
+        };
+      },
       colorScheme: DSColorScheme(
         primary: DSColor(color: const Color(0xFFF273B2), isLight: true),
         secondary: DSColor(color: const Color(0xFF0099FF), isLight: false),

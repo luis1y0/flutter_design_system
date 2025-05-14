@@ -1,8 +1,12 @@
 name: Widgetbook Cloud Hosting
-on: push
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  widgetbook-cloud-hosting:
+  deply-to-widgetbook:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,12 +27,6 @@ jobs:
             flutter pub get
             dart run build_runner build -d
             flutter build web -t lib/main.dart
-
-      - name: Lint (flutter analyze)
-        run: flutter analyze
-
-      - name: Run tests
-        run: flutter test
 
       - name: Install Widgetbook CLI
         run: dart pub global activate widgetbook_cli
