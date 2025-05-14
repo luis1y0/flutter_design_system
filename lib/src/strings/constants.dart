@@ -7,6 +7,9 @@ class DSTextConstants {
   static const String keyFieldConfirmPassword = 'field.confirm_password';
   static const String keyBtnSignin = 'btn.signin';
   static const String keyBtnSignup = 'btn.signup';
+  // regex
+  static const String regexEmail =
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
   // labels
   static const String labelEmail = 'label.email';
   static const String labelPassword = 'label.password';

@@ -8,10 +8,12 @@ void main() {
   testWidgets('Signup form first build test', (WidgetTester tester) async {
     await tester.pumpWidget(wrapWithMaterialApp(const DSSignupForm()));
 
-    final emailFinder = find.byKey(const ValueKey('email_signup_field'));
-    final passwordFinder = find.byKey(const ValueKey('password_signup_field'));
+    final emailFinder =
+        find.byKey(const ValueKey(DSTextConstants.keyFieldEmail));
+    final passwordFinder =
+        find.byKey(const ValueKey(DSTextConstants.keyFieldPassword));
     final confirmPasswordFinder =
-        find.byKey(const ValueKey('confirm_password_signup_field'));
+        find.byKey(const ValueKey(DSTextConstants.keyFieldConfirmPassword));
     expect(emailFinder, findsOneWidget);
     expect(passwordFinder, findsOneWidget);
     expect(confirmPasswordFinder, findsOneWidget);
@@ -27,10 +29,12 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(wrapWithMaterialApp(const DSSignupForm()));
 
-    final emailFinder = find.byKey(const ValueKey('email_signup_field'));
-    final passwordFinder = find.byKey(const ValueKey('password_signup_field'));
+    final emailFinder =
+        find.byKey(const ValueKey(DSTextConstants.keyFieldEmail));
+    final passwordFinder =
+        find.byKey(const ValueKey(DSTextConstants.keyFieldPassword));
     final confirmPasswordFinder =
-        find.byKey(const ValueKey('confirm_password_signup_field'));
+        find.byKey(const ValueKey(DSTextConstants.keyFieldConfirmPassword));
     // type text to email and password
     await tester.tap(emailFinder);
     await tester.pumpAndSettle();
