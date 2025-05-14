@@ -3,6 +3,9 @@ import 'package:flutter_design_system/flutter_design_system.dart';
 
 Widget wrapWithMaterialApp(Widget child) {
   return DesignSystemProvider(
+    stringResolver: (key) {
+      return key;
+    },
     colorScheme: DSColorScheme(
       primary: DSColor(color: const Color(0xFFF273B2), isLight: true),
       secondary: DSColor(color: const Color(0xFF0099FF), isLight: false),

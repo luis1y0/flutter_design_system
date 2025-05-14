@@ -50,9 +50,9 @@ class _DSSignupFormState extends State<DSSignupForm> {
               ),
             const SizedBox(height: 8.0),
             DSTextField.form(
-              key: const ValueKey('email_signup_field'),
+              key: const ValueKey(DSTextConstants.keyFieldEmail),
               controller: _controller.controllerEmail,
-              labelText: 'Email',
+              labelText: DSString.of(DSTextConstants.labelEmail),
               isDense: true,
               prefix: const Icon(Icons.alternate_email),
               keyboardType: TextInputType.emailAddress,
@@ -63,9 +63,9 @@ class _DSSignupFormState extends State<DSSignupForm> {
             ),
             const SizedBox(height: 8.0),
             DSTextField.form(
-              key: const ValueKey('password_signup_field'),
+              key: const ValueKey(DSTextConstants.keyFieldPassword),
               controller: _controller.controllerPassword,
-              labelText: 'Password',
+              labelText: DSString.of(DSTextConstants.labelPassword),
               isDense: true,
               prefix: const Icon(Icons.lock),
               state: _controller.state.passwordState,
@@ -76,9 +76,9 @@ class _DSSignupFormState extends State<DSSignupForm> {
             ),
             const SizedBox(height: 8.0),
             DSTextField.form(
-              key: const ValueKey('confirm_password_signup_field'),
+              key: const ValueKey(DSTextConstants.keyFieldConfirmPassword),
               controller: _controller.controllerConfirmPassword,
-              labelText: 'Confirm Password.',
+              labelText: DSString.of(DSTextConstants.labelConfirmPassword),
               isDense: true,
               prefix: const Icon(Icons.lock),
               state: _controller.state.confirmPasswordState,
@@ -87,52 +87,43 @@ class _DSSignupFormState extends State<DSSignupForm> {
               validator: _controller.validateConfirmPassword,
             ),
             const SizedBox(height: 8.0),
-            Row(
-              children: [
-                Expanded(
-                  child: DSButton(
-                    variant: DSButtonVariant.secondary,
-                    onPressed:
-                        _controller.state.isLoading ? null : widget.onBack,
-                    child: const DSText('Go Back'),
-                  ),
-                ),
-                const SizedBox(width: 8.0),
-                Expanded(
-                  child: DSButton(
-                    onPressed: _controller.state.isRegisterButtonEnabled
-                        ? _onRegisterCallback
-                        : null,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ConstrainedBox(
-                            constraints: const BoxConstraints(
-                              maxHeight: 16.0,
-                              maxWidth: 16.0,
-                            ),
-                            child: Visibility(
-                              visible: _controller.state.isLoading,
-                              child: CircularProgressIndicator(
-                                color: ds.colorScheme.disabled.color,
-                              ),
-                            ),
-                          ),
-                          const Expanded(
-                            child: DSText(
-                              'Register',
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ],
+            DSButton(
+              onPressed: _controller.state.isRegisterButtonEnabled
+                  ? _onRegisterCallback
+                  : null,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxHeight: 16.0,
+                        maxWidth: 16.0,
+                      ),
+                      child: Visibility(
+                        visible: _controller.state.isLoading,
+                        child: CircularProgressIndicator(
+                          color: ds.colorScheme.disabled.color,
+                        ),
                       ),
                     ),
-                  ),
+                    Expanded(
+                      child: DSText(
+                        DSString.of(DSTextConstants.labelSignup),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            )
+              ),
+            ),
+            Center(
+              child: DSLinkText(
+                DSString.of(DSTextConstants.labelNavigateLogin),
+                callback: _controller.state.isLoading ? null : widget.onBack,
+              ),
+            ),
           ],
         ),
       ),

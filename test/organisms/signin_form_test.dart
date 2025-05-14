@@ -7,9 +7,9 @@ import '../test_helpers.dart';
 void main() {
   testWidgets('Initial signin form state test', (WidgetTester tester) async {
     await tester.pumpWidget(wrapWithMaterialApp(const DSSigninForm()));
-    final emailFind = find.byKey(const ValueKey(DSTextConstants.emailFieldKey));
+    final emailFind = find.byKey(const ValueKey(DSTextConstants.keyFieldEmail));
     final passwordFind =
-        find.byKey(const ValueKey(DSTextConstants.passwordFieldKey));
+        find.byKey(const ValueKey(DSTextConstants.keyFieldPassword));
     expect(emailFind, findsOne);
     expect(passwordFind, findsOne);
     final emailWidget = tester.widget<DSTextField>(emailFind);
@@ -23,9 +23,9 @@ void main() {
   });
   testWidgets('Input wrong formatted values test', (WidgetTester tester) async {
     await tester.pumpWidget(wrapWithMaterialApp(const DSSigninForm()));
-    final emailFind = find.byKey(const ValueKey(DSTextConstants.emailFieldKey));
+    final emailFind = find.byKey(const ValueKey(DSTextConstants.keyFieldEmail));
     final passwordFind =
-        find.byKey(const ValueKey(DSTextConstants.passwordFieldKey));
+        find.byKey(const ValueKey(DSTextConstants.keyFieldPassword));
     var emailWidget = tester.widget<DSTextField>(emailFind);
     var passwordWidget = tester.widget<DSTextField>(passwordFind);
     expect(emailWidget.state, DSTextFieldState.activated);
@@ -45,9 +45,9 @@ void main() {
   testWidgets('Input correct values enable signin button test',
       (WidgetTester tester) async {
     await tester.pumpWidget(wrapWithMaterialApp(const DSSigninForm()));
-    final emailFind = find.byKey(const ValueKey(DSTextConstants.emailFieldKey));
+    final emailFind = find.byKey(const ValueKey(DSTextConstants.keyFieldEmail));
     final passwordFind =
-        find.byKey(const ValueKey(DSTextConstants.passwordFieldKey));
+        find.byKey(const ValueKey(DSTextConstants.keyFieldPassword));
     var emailWidget = tester.widget<DSTextField>(emailFind);
     var passwordWidget = tester.widget<DSTextField>(passwordFind);
     expect(emailWidget.state, DSTextFieldState.activated);
@@ -63,7 +63,7 @@ void main() {
     passwordWidget = tester.widget<DSTextField>(passwordFind);
     expect(emailWidget.state, DSTextFieldState.activated);
     expect(passwordWidget.state, DSTextFieldState.activated);
-    final btnFind = find.byKey(const ValueKey(DSTextConstants.signinButtonKey));
+    final btnFind = find.byKey(const ValueKey(DSTextConstants.keyBtnSignin));
     var btnWidget = tester.widget<DSButton>(btnFind);
     expect(btnWidget.onPressed, isNotNull);
   });
@@ -71,7 +71,7 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(wrapWithMaterialApp(const DSSigninForm()));
     final passwordFind =
-        find.byKey(const ValueKey(DSTextConstants.passwordFieldKey));
+        find.byKey(const ValueKey(DSTextConstants.keyFieldPassword));
     var iconFind = find.byIcon(Icons.visibility);
     final iconShowFind = find.descendant(of: passwordFind, matching: iconFind);
     expect(iconShowFind, findsOneWidget);

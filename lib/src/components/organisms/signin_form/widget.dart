@@ -32,13 +32,13 @@ class _DSSigninFormState extends State<DSSigninForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const DSTextField.form(
-              key: ValueKey(DSTextConstants.emailFieldKey),
-              prefix: Icon(Icons.alternate_email),
-              labelText: 'Correo',
+            DSTextField.form(
+              key: const ValueKey(DSTextConstants.keyFieldEmail),
+              prefix: const Icon(Icons.alternate_email),
+              labelText: DSString.of(DSTextConstants.labelEmail),
             ),
             DSTextField.form(
-              key: const ValueKey(DSTextConstants.passwordFieldKey),
+              key: const ValueKey(DSTextConstants.keyFieldPassword),
               prefix: const Icon(Icons.lock),
               suffix: IconButton(
                 onPressed: () {
@@ -46,23 +46,23 @@ class _DSSigninFormState extends State<DSSigninForm> {
                 },
                 icon: const Icon(Icons.visibility),
               ),
-              labelText: 'Contraseña',
+              labelText: DSString.of(DSTextConstants.labelPassword),
             ),
             Align(
               alignment: Alignment.centerRight,
               child: DSLinkText(
-                'Olvide mi contraseña',
+                DSString.of(DSTextConstants.labelForgotPassword),
                 callback: widget.onForgetPasswordCallback,
               ),
             ),
-            const DSButton(
-              key: ValueKey(DSTextConstants.signinButtonKey),
-              child: DSText('Entrar'),
+            DSButton(
+              key: const ValueKey(DSTextConstants.keyBtnSignin),
+              child: DSText(DSString.of(DSTextConstants.labelSignin)),
             ),
             Align(
               alignment: Alignment.center,
               child: DSLinkText(
-                '¿No tienes una cuenta? Registrate',
+                DSString.of(DSTextConstants.labelCreateAccount),
                 callback: widget.onNavigateToSignup,
               ),
             )

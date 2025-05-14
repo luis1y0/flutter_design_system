@@ -9,6 +9,6 @@ export 'molecules/animated_listview.dart';
 export 'molecules/lazy_loading_listview.dart';
 export 'molecules/paginate_widget.dart';
 export 'molecules/text_field.dart';
-export 'organisms/signin_form.dart';
-export 'organisms/signup_form.dart';
+export 'organisms/signin_form/component.dart';
+export 'organisms/signup_form/component.dart';
 export 'screens/login_screen.dart';

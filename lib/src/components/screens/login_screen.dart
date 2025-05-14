@@ -23,7 +23,22 @@ class _DSLoginScreenState extends State<DSLoginScreen> {
             size: sizeLogo,
           ),
           AnimatedSwitcher(
-            duration: const Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 300),
+            transitionBuilder: (child, animation) {
+              final begin = switch (child) {
+                DSSigninForm() => -1.0,
+                DSSignupForm() => 1.0,
+                _ => 0.0
+              };
+              final animate = animation.drive(Tween<Offset>(
+                begin: Offset(begin, 0.0),
+                end: const Offset(0.0, 0.0),
+              ));
+              return SlideTransition(
+                position: animate,
+                child: child,
+              );
+            },
             child: _buildForm(isSignIn: _showSignin),
           ),
           const Row(
