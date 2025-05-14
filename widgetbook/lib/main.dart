@@ -30,8 +30,14 @@ class WidgetbookApp extends StatelessWidget {
           DSTextConstants.labelPrivacyPolicy => 'Privacy Policy',
           DSTextConstants.labelConfirmPassword => 'Confirm Password',
           DSTextConstants.labelSignup => 'Sign Up',
-          DSTextConstants.labelNavigateLogin =>
-            'Do you already have an account? Go to login',
+          DSTextConstants.labelNavigateLogin => 'Do you already have an '
+              'account? Go to login',
+          DSTextConstants.errorFieldRequired => 'This field is required',
+          DSTextConstants.errorInvalidEmail => 'Use a correct email format',
+          DSTextConstants.errorInvalidPassword => 'Use at least 8 characters, '
+              'valid characters are letters, numbers and ,.;:<>¿?!@#\$%&*()[]'
+              '{}=+-_',
+          DSTextConstants.errorConfirmPassword => 'Passwords don\'t match',
           _ => key,
         };
       },

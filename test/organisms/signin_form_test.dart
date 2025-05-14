@@ -46,6 +46,27 @@ void main() {
     var btnWidget = tester.widget<DSButton>(btnFind);
     expect(btnWidget.onPressed, isNotNull);
   });
+  testWidgets('Input wrong values set error state test',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(wrapWithMaterialApp(const DSSigninForm()));
+    final emailFind = find.byKey(const ValueKey(DSTextConstants.keyFieldEmail));
+    final passwordFind =
+        find.byKey(const ValueKey(DSTextConstants.keyFieldPassword));
+    var emailWidget = tester.widget<DSTextField>(emailFind);
+    var passwordWidget = tester.widget<DSTextField>(passwordFind);
+    expect(emailWidget.state, DSTextFieldState.activated);
+    expect(passwordWidget.state, DSTextFieldState.activated);
+    await inputLoginValues(
+      tester: tester,
+      emailFind: emailFind,
+      email: 'wrong email',
+      passwordFind: passwordFind,
+      password: '1234',
+    );
+    final btnFind = find.byKey(const ValueKey(DSTextConstants.keyBtnSignin));
+    var btnWidget = tester.widget<DSButton>(btnFind);
+    expect(btnWidget.onPressed, isNull);
+  });
   testWidgets('Show and hide password pressing icon button test',
       (WidgetTester tester) async {
     await tester.pumpWidget(wrapWithMaterialApp(const DSSigninForm()));
@@ -70,13 +91,13 @@ Future<void> inputLoginValues({
   required String password,
 }) async {
   await tester.tap(emailFind);
-  await tester.pump();
+  await tester.pumpAndSettle();
   tester.testTextInput.enterText(email);
-  await tester.pump();
+  await tester.pumpAndSettle();
   await tester.tap(passwordFind);
-  await tester.pump();
+  await tester.pumpAndSettle();
   tester.testTextInput.enterText(password);
-  await tester.pump();
+  await tester.pumpAndSettle();
   await tester.tap(emailFind);
-  await tester.pump();
+  await tester.pumpAndSettle();
 }

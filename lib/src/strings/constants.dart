@@ -11,6 +11,8 @@ class DSTextConstants {
   static const String regexEmail =
       r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
   // labels
+  static const String labelLogin = 'label.login';
+  static const String labelRegister = 'label.register';
   static const String labelEmail = 'label.email';
   static const String labelPassword = 'label.password';
   static const String labelConfirmPassword = 'label.confirm_password';
@@ -21,4 +23,9 @@ class DSTextConstants {
   static const String labelNavigateLogin = 'label.navigate_login';
   static const String labelTermsConditions = 'label.terms_conditions';
   static const String labelPrivacyPolicy = 'label.privacy_policy';
+  // errors
+  static const String errorFieldRequired = 'error.field_required';
+  static const String errorInvalidEmail = 'error.invalid_email';
+  static const String errorInvalidPassword = 'error.invalid_password';
+  static const String errorConfirmPassword = 'error.confirm_password';
 }
