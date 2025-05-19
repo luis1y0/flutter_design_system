@@ -94,6 +94,7 @@ class _DSPhoneVerificationController
       value = (value as DSPhoneVerificationNumberFormState).copyWith(
         errorMessage: message,
         isLoading: false,
+        buttonSendOtpEnabled: false,
       );
     } else if (value is DSPhoneVerificationOtpFormState) {
       _otp = '';
@@ -101,6 +102,7 @@ class _DSPhoneVerificationController
         otp: _otp,
         errorMessage: message,
         isLoading: false,
+        buttonSendOtpEnabled: false,
       );
     }
   }
@@ -130,6 +132,7 @@ class _DSPhoneVerificationController
     if (value is DSPhoneVerificationNumberFormState) {
       value = (value as DSPhoneVerificationNumberFormState).copyWith(
         isLoading: true,
+        buttonSendOtpEnabled: false,
       );
     }
   }
