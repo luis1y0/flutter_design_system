@@ -10,10 +10,16 @@ typedef DSTextFormValidateCallback = String? Function(String? value);
 
 class DSTextField extends StatelessWidget {
   final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final Iterable<String>? autofillHints;
   final String? labelText;
-  final String? errorText;
+  final String? labelError;
   final DSTextFieldState state;
   final bool isDense;
+  final TextStyle? style;
+  final TextAlign textAlign;
+  final int? maxLength;
+  final EdgeInsetsGeometry? contentPadding;
   final DSTextEditingCallback? onChanged;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
@@ -31,9 +37,15 @@ class DSTextField extends StatelessWidget {
 
   const DSTextField({
     this.controller,
+    this.focusNode,
+    this.autofillHints,
     this.labelText,
-    this.errorText,
+    this.labelError,
     this.state = DSTextFieldState.activated,
+    this.style,
+    this.textAlign = TextAlign.start,
+    this.maxLength,
+    this.contentPadding,
     this.isDense = false,
     this.prefix,
     this.suffix,
@@ -50,9 +62,15 @@ class DSTextField extends StatelessWidget {
 
   const DSTextField.form({
     this.controller,
+    this.focusNode,
+    this.autofillHints,
     this.labelText,
-    this.errorText,
+    this.labelError,
     this.state = DSTextFieldState.activated,
+    this.style,
+    this.textAlign = TextAlign.start,
+    this.maxLength,
+    this.contentPadding,
     this.isDense = false,
     this.prefix,
     this.suffix,
@@ -76,7 +94,7 @@ class DSTextField extends StatelessWidget {
     final inputDecoration = InputDecoration(
       alignLabelWithHint: true,
       labelText: labelText,
-      contentPadding: const EdgeInsets.all(16.0),
+      contentPadding: contentPadding,
       floatingLabelAlignment: FloatingLabelAlignment.start,
       floatingLabelStyle: DSTextStyles.base(),
       floatingLabelBehavior: FloatingLabelBehavior.auto,
@@ -89,6 +107,12 @@ class DSTextField extends StatelessWidget {
       prefixIconColor: colorScheme.primary.color,
       suffixIcon: suffix,
       suffixIconColor: colorScheme.primary.color,
+      error: labelError != null
+          ? DSText(
+              labelError!,
+              style: TextStyle(color: colorScheme.error.color),
+            )
+          : null,
       // Default
       border: UnderlineInputBorder(
         borderSide: BorderSide(
@@ -103,17 +127,19 @@ class DSTextField extends StatelessWidget {
       ),
       // Error
       errorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-        color: colorScheme.error.color,
-      )),
+        borderSide: BorderSide(
+          color: colorScheme.error.color,
+        ),
+      ),
       errorStyle: DSTextStyles.quotation().copyWith(
         color: colorScheme.error.color,
       ),
-      errorText: state == DSTextFieldState.error ? errorText : null,
     );
     if (_isFormWidget) {
       return TextFormField(
         controller: controller,
+        focusNode: focusNode,
+        autofillHints: autofillHints,
         onSaved: onSaved,
         onChanged: onChanged,
         validator: validator,
@@ -122,24 +148,33 @@ class DSTextField extends StatelessWidget {
         enabled: state != DSTextFieldState.disabled,
         keyboardType: keyboardType,
         inputFormatters: inputFormatters,
-        style: DSTextStyles.base().copyWith(
-          color: colorScheme.primary.color,
-        ),
+        style: style,
+        textAlign: textAlign,
+        buildCounter: (context,
+            {required currentLength, required isFocused, required maxLength}) {
+          return const SizedBox.shrink();
+        },
         cursorColor: colorScheme.primary.color,
         decoration: inputDecoration,
       );
     }
     return TextField(
       controller: controller,
+      focusNode: focusNode,
+      autofillHints: autofillHints,
       onSubmitted: onSubmitted,
       onChanged: onChanged,
       obscureText: obscureText,
       enabled: state != DSTextFieldState.disabled,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
-      style: DSTextStyles.base().copyWith(
-        color: colorScheme.primary.color,
-      ),
+      style: style,
+      textAlign: textAlign,
+      maxLength: maxLength,
+      buildCounter: (context,
+          {required currentLength, required isFocused, required maxLength}) {
+        return const SizedBox.shrink();
+      },
       cursorColor: colorScheme.secondary.color,
       decoration: inputDecoration,
     );
