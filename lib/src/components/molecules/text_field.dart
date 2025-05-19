@@ -112,7 +112,9 @@ class DSTextField extends StatelessWidget {
               labelError!,
               style: TextStyle(color: colorScheme.error.color),
             )
-          : null,
+          : state == DSTextFieldState.error
+              ? const SizedBox.shrink()
+              : null,
       // Default
       border: UnderlineInputBorder(
         borderSide: BorderSide(
