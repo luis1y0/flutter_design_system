@@ -57,7 +57,7 @@ class _DSSigninFormState extends State<DSSigninForm> {
               prefix: const Icon(Icons.alternate_email),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               state: _controller.state.emailState,
-              errorText: _controller.state.result.errorEmail,
+              labelError: _controller.state.result.errorEmail,
               validator: _controller.validateEmail,
               labelText: DSString.of(DSTextConstants.labelEmail),
             ),
@@ -68,7 +68,7 @@ class _DSSigninFormState extends State<DSSigninForm> {
               obscureText: !_controller.state.isPasswordVisible,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               state: _controller.state.passwordState,
-              errorText: _controller.state.result.errorPassword,
+              labelError: _controller.state.result.errorPassword,
               validator: _controller.validatePassword,
               suffix: IconButton(
                 onPressed: () {

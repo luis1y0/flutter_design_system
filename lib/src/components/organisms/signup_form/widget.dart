@@ -61,7 +61,7 @@ class _DSSignupFormState extends State<DSSignupForm> {
               state: _controller.state.emailState,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: _controller.validateEmail,
-              errorText: _controller.state.signupResult.errorEmail,
+              labelError: _controller.state.signupResult.errorEmail,
             ),
             const SizedBox(height: 8.0),
             DSTextField.form(
@@ -74,7 +74,7 @@ class _DSSignupFormState extends State<DSSignupForm> {
               obscureText: true,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: _controller.validatePassword,
-              errorText: _controller.state.signupResult.errorPassword,
+              labelError: _controller.state.signupResult.errorPassword,
             ),
             const SizedBox(height: 8.0),
             DSTextField.form(

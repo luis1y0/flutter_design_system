@@ -67,6 +67,11 @@ class WidgetbookApp extends StatelessWidget {
             ],
           ),
         ],
+        appBuilder: (context, child) {
+          return Scaffold(
+            body: child,
+          );
+        },
         home: const HomePage(),
       ),
     );
