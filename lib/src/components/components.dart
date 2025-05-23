@@ -6,6 +6,7 @@ export 'atoms/icon.dart';
 export 'atoms/link_text.dart';
 export 'atoms/text.dart';
 export 'molecules/animated_listview.dart';
+export 'molecules/image.dart';
 export 'molecules/lazy_loading_listview.dart';
 export 'molecules/paginate_widget.dart';
 export 'molecules/text_field.dart';
